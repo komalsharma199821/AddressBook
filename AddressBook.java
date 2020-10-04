@@ -21,7 +21,7 @@ public class AddressBook {
      String regexForPhoneNumber =  "^[+]?([0-9]{2,3})?[0-9]{10}$";
      
      while(true){
-         System.out.println("Enter the case number you want to perform \n 1.To add a new user Record to the address Book \n 2.To search For a particular record \n 3.To delete a user \n 4.To update a user detail \n 5.To create a new HashMap \n 6.To sort array According to the Zipcode \n 7.To sort the array according to the surname of the user \n 8.To view active addressbook ur working with \n 9.To view all you address books");
+         System.out.println("Enter the case number you want to perform \n 1.To add a new user Record to the address Book \n 2.To search For a particular record \n 3.To delete a user \n 4.To update a user detail \n 5.To create a new HashMap \n 6.To sort the records According to the Zipcode \n 7.To sort the records according to the surname of the user \n 8.To view active addressbook ur working with \n 9.To view all you address books \n 10. To select one of your address books you wish to work with");
          int caseNum = sc.nextInt();
          switch(caseNum){
          //adding a new user to the address book
@@ -187,7 +187,7 @@ public class AddressBook {
                        
                    }
                    
-                   String updatedValueString = firstnameForUpdate+" "+lastnameForUpdate+" "+addressForUpdate+" "+cityForUpdate+" "+stateNameForUpdate+" "+zipcodeForUpdate+" "+phoneNumForUpdate;
+                   String updatedValueString = firstnameForUpdate+" "+lastnameForUpdate+", "+addressForUpdate+", "+cityForUpdate+", "+stateNameForUpdate+", "+zipcodeForUpdate+", "+phoneNumForUpdate;
                    if(editUserKey != "" || editUserKey != null) {
                 	   userAddressMap.replace(editUserKey, updatedValueString); 
                 	   System.out.println("Record Updated Successfully!");
@@ -213,7 +213,7 @@ public class AddressBook {
          break;
          
         case 6:
-        	System.out.println("Sort the hashmap user contents by the zipcode");
+        	System.out.println("Sort the address Book user contents by the zipcode");
         	Map<String,String> sortMapForZipcode = new HashMap<String,String>();
         	if(userAddressMap==null || userAddressMap.isEmpty() == true) {
         		System.out.println("Please Enter the user details prior to sort");
@@ -226,17 +226,14 @@ public class AddressBook {
             }
         	
         	TreeMap<String, String> sorted = new TreeMap<>(); 
-        	  
-            // Copy all data from hashMap into TreeMap 
             sorted.putAll(sortMapForZipcode); 
-      
-            // Display the TreeMap which is naturally sorted 
+            System.out.println("Sorted values according to zipcodes are as follows :");
             for (Map.Entry<String, String> entry : sorted.entrySet())  
-                System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+                System.out.println(" Value = " + entry.getValue());
         	break;
         	
         case 7:
-        	System.out.println("Sort the hashmap user contents by the Surname");
+        	System.out.println("Sort the address book user contents by the Surname");
         	Map<String,String> sortMapForSurname = new HashMap<String,String>();
         	for(Map.Entry<String,String> mappedUsersDetails :userAddressMap.entrySet() ){
                 String[] splitForSurname = mappedUsersDetails.getValue().toString().split(" ");
@@ -247,12 +244,10 @@ public class AddressBook {
         	
         	TreeMap<String, String> sortedSurnames = new TreeMap<>(); 
         	  
-            // Copy all data from hashMap into TreeMap 
         	sortedSurnames.putAll(sortMapForSurname); 
-      
-            // Display the TreeMap which is naturally sorted 
+        	System.out.println("Sorted values according to surnames are as follows :");
             for (Map.Entry<String, String> entry : sortedSurnames.entrySet())  
-                System.out.println("Key = " + entry.getKey() +", Value = " + entry.getValue());
+                System.out.println("Value = " + entry.getValue());
         	break;
         	
         case 8:
@@ -268,6 +263,12 @@ public class AddressBook {
         	for(HashMap.Entry<Integer,Map<String,String>> mappedUsersDetailsInAddressBook :hashMapAddressBooks.entrySet() ){
                 System.out.println(mappedUsersDetailsInAddressBook.getKey()+"=>"+mappedUsersDetailsInAddressBook.getValue());
             }
+        	break;
+        case 10:
+        	System.out.println("Enter the Key of the Address Book you want to work with");
+        	int addressBookKey = sc.nextInt();
+        	Map<String,String> desiredWorkingHashMap = hashMapAddressBooks.get(addressBookKey);
+        	activeHashMap = desiredWorkingHashMap;
         	break;
         }
      }
